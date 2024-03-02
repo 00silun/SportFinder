@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct SportFinderApp: App {
+    @StateObject var core = UserAuth()
+    init(){FirebaseApp.configure()}
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(core)
         }
     }
 }
