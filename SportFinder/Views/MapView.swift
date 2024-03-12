@@ -11,56 +11,45 @@ import SwiftUI
 import MapKit
 
 
+
 struct MapView: View {
     @State private var isInSettingsView: Bool?
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 58.969976, longitude: 5.733107),
+        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    )
+    @State private var trackingMode = MapUserTrackingMode.follow
 
     var body: some View {
         NavigationView {
             ZStack {
-                Map(coordinateRegion: .constant(MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(latitude: 58.969976, longitude: 5.733107), // Center on Stavanger
-                    span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))), showsUserLocation: true, userTrackingMode: .constant(.follow))
+                Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $trackingMode)
                     .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                }
-                
-                VStack {
-                    Spacer()
-                    NavigationLink(destination: SettingsView() ){
-                        Text("Settings")
-                    }
-                    .buttonStyle(customButtonStyle())
-                    .padding()
-                }
-                .animation(.spring())
-            }
-            .navigationBarItems(leading: backButton)
-            .onAppear {
-                // Hide the back button when entering the map view
-                self.isInSettingsView = false
-            }
-        }
-    }
+                    //.navigationTitle("Map")
+                    //.navigationBarHidden(true)
 
-    private var backButton: some View {
-        Button(action: {
-            self.isInSettingsView = false
-        }) {
-            Image(systemName: "chevron.left")
-                .imageScale(.large)
-                .padding()
+                VStack {
+                    Spacer()
+                }
+
+                VStack {
+                    Spacer()
+                    NavigationLink("Settings", destination: SettingsView())
+                        .buttonStyle(customButtonStyle())
+                        .padding()
+                }
+            }
         }
-        .foregroundColor(.primary)
-        //.opacity(isInSettingsView ?? false ? 1.0 : 0.0)
-        .animation(.default)
     }
 }
+
 
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        let userAuth = UserAuth() // Create a mock UserAuth object
+        return MapView()
+            .environmentObject(userAuth) // Provide the mock UserAuth object
     }
 }
+

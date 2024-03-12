@@ -1,32 +1,23 @@
 import SwiftUI
 
 
-     //MARK: original
+
+//MARK: original
 struct ContentView: View {
-    @State private var showMapView :Bool = true
-    @State private var showSettingView : Bool = false
-    @State private var showSportSelectionView : Bool = false
+    //@State private var showMapView :Bool = true
+    //@State private var showSettingView: Bool = false
     @EnvironmentObject var core: UserAuth
     
     var body: some View {
         Group {
             if core.userSession != nil {
-                ZStack {
-                    if showMapView {
                         MapView()
-                    } else if showSettingView {
-                        SettingsView()
-                    } else if showSportSelectionView{
-                        SportSelectorView()
-                    } else {
-                        LoginView()
-                    }
-                }
+            } else {
+                    LoginView()
             }
         }
     }
 }
-
 
 
 
@@ -39,3 +30,24 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
+/*
+ //MARK: original
+struct ContentView: View {
+@State private var showMapView :Bool = true
+@EnvironmentObject var core: UserAuth
+
+var body: some View {
+    Group {
+        if core.userSession != nil {
+            ZStack {
+                if showMapView {
+                    MapView()
+                } else {
+                    LoginView()
+                }
+            }
+        }
+    }
+}
+}
+ */

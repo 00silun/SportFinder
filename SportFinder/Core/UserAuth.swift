@@ -73,5 +73,20 @@ class UserAuth: ObservableObject {
         self.currentUser = try? snapshot.data(as:User.self)
     }
     
+    func updateUserInfo(userID: String, newName: String, newEmail: String, newDateOfBirth: String, newPhoneNumber: String) {
+        let userRef = Firestore.firestore().collection("users").document(userID)
+        userRef.updateData([
+            "fullname": newName,
+            "email": newEmail,
+            "date_of_birth": newDateOfBirth,
+            "phone_number": newPhoneNumber
+        ]) { error in
+            if let error = error {
+                print("Error updating user information: \(error.localizedDescription)")
+            } else {
+                print("User information updated successfully")
+            }
+        }
+    }
 }
 

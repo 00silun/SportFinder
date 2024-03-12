@@ -128,3 +128,14 @@ extension RegistrationView: AuthenticationFormProtocal{
 
 }
 
+
+
+// MARK: -Preview
+struct RegistrationView_Previews: PreviewProvider {
+    static var previews: some View {
+        RegistrationView()
+            .environmentObject(UserAuth()) // Assuming you have an EnvironmentObject UserAuth
+    }
+}
+
+
