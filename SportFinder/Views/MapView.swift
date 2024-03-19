@@ -24,9 +24,9 @@ struct MapView: View {
         NavigationView {
             ZStack {
                 Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $trackingMode)
-                    .ignoresSafeArea()
                     .navigationTitle("Map")
                     .navigationBarHidden(true)
+                    .ignoresSafeArea()
 
                 VStack {
                     Spacer()
@@ -37,6 +37,7 @@ struct MapView: View {
                     NavigationLink("Settings", destination: SettingsView())
                         .buttonStyle(customButtonStyle())
                         .padding()
+                        
                 }
             }
         }

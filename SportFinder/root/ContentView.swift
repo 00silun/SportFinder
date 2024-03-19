@@ -4,17 +4,21 @@ import SwiftUI
 
 //MARK: original
 struct ContentView: View {
-    @State private var showMapView :Bool = true
+
+    //@State private var showMapView :Bool = true
+    //@State private var showSettingView: Bool = false
+
     @EnvironmentObject var core: UserAuth
-    
     var body: some View {
         Group {
-            LoginView()
+            if core.userSession != nil {
+                        MapView()
+            } else {
+                    LoginView()
+            }
         }
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

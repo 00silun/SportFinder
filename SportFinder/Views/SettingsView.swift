@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 /*
 struct SettingsView: View {
     var body: some View{
@@ -7,6 +8,7 @@ struct SettingsView: View {
     }
 }
 */
+
 struct SettingsView: View {
     @EnvironmentObject var core: UserAuth
     //@Binding var isInSettingsView: Bool?
@@ -140,18 +142,35 @@ struct EditUserInfoView: View {
 
 
 
-struct SettingsView_Previews: PreviewProvider {
+
+struct SettingsView_Previews2: PreviewProvider {
     static var previews: some View {
         NavigationView {
             SettingsView()
-                .environmentObject(UserAuth()) // Assuming you have an EnvironmentObject UserAuth
+                .environmentObject(UserAuth()) // Assuming you have an
         }
     }
 }
 
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Create a mock user
+        let mockUser = User(id: "mockUserID", fullname: "John Doe", email: "john@example.com", phone_number: "1234567890", date_of_birth: "1990-01-01")
+        
+        // Create a UserAuth instance and set currentUser to the mock user
+        let userAuth = UserAuth()
+        userAuth.currentUser = mockUser
+        
+        // Wrap the EditUserInfoView in a NavigationView to simulate navigation
+        return NavigationView {
+            SettingsView().environmentObject(userAuth)
+            
+        }
+    }
+}
 
-
-
+            
+            
 struct EditUserInfoView_Previews: PreviewProvider {
     static var previews: some View {
         // Create a mock user
@@ -167,8 +186,7 @@ struct EditUserInfoView_Previews: PreviewProvider {
         }
     }
 }
-
-
+            
 
 
 
